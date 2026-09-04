@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "690ed33d1ee7c021",
+        "id": "7f1a6883f948b9f3",
         "type": "tabs",
         "children": [
           {
-            "id": "d99cc06d83aa81d1",
+            "id": "1d0d51bb037a439f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "dot/Dots demo.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Dots demo"
             }
           }
         ]
@@ -181,8 +185,24 @@
       "bases:Create new base": false
     }
   },
-  "active": "d99cc06d83aa81d1",
+  "active": "97b41422c7260903",
   "lastOpenFiles": [
-    "Untitled.md"
+    "vault/victor/sync.md",
+    "Dots demo.md",
+    "dot/Dots demo.md",
+    "templates/sync-apply.md",
+    "templates/sync-dry.md",
+    "templates/scripts/syncRun.js",
+    "templates/scripts",
+    "templates",
+    "README.md",
+    "vault/victor/whitelist.txt",
+    "vault/whitelist.txt",
+    "vault/victor/import.sh",
+    "vault/import.sh",
+    "vault/victor",
+    "vault",
+    "sync/victor",
+    "AGENTS.md"
   ]
 }
