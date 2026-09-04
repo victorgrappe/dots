@@ -185,8 +185,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "97b41422c7260903",
+  "active": "1d0d51bb037a439f",
   "lastOpenFiles": [
+    "dot/Dot.md",
+    "dot/Algebra.md",
     "vault/victor/sync.md",
     "Dots demo.md",
     "dot/Dots demo.md",
