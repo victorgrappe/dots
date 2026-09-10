@@ -1,3 +1,6 @@
+---
+class: "[[Dot]]"
+---
 # Dots demo
 
 Click the button:

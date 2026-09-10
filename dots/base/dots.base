@@ -1,0 +1,54 @@
+filters:
+  and:
+    - file.folder == "dots"
+formulas:
+  class__1: if(note.class, note.class, note.type)
+  class__2: formula.class__1.asFile().properties.class
+  class__3: formula.class__2.asFile().properties.class
+  class__4: formula.class__3.asFile().properties.class
+  class__5: formula.class__4.asFile().properties.class
+  class__6: formula.class__5.asFile().properties.class
+  class__7: formula.class__6.asFile().properties.class
+  class__8: formula.class__7.asFile().properties.class
+  class__dir: '[formula.class__8, formula.class__7, formula.class__6, formula.class__5, formula.class__4, formula.class__3, formula.class__2, formula.class__1].filter(value).map(value.asFile().name).join(".")'
+  class__path: if(formula.class__dir, formula.class__dir + "." + file.name, file.name)
+  path: if(formula.class__dir, formula.class__dir + if(note.class, ".", "--") + file.name, file.name)
+views:
+  - type: table
+    name: Dot
+    order:
+      - file.name
+      - class
+      - formula.class__path
+      - type
+      - formula.path
+    sort:
+      - property: class
+        direction: DESC
+    columnSize:
+      file.name: 174
+      note.class: 98
+      formula.class__path: 312
+  - type: table
+    name: Dot.class
+    order:
+      - file.name
+      - class
+      - formula.class__dir
+      - formula.class__path
+      - formula.class__8
+      - formula.class__7
+      - formula.class__6
+      - formula.class__5
+      - formula.class__4
+      - formula.class__3
+      - formula.class__2
+      - formula.class__1
+    sort:
+      - property: formula.class__dir
+        direction: ASC
+    columnSize:
+      note.class: 99
+      formula.class__dir: 131
+      formula.class__path: 158
+      formula.class__8: 96
