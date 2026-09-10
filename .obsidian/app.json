@@ -2,5 +2,6 @@
   "readableLineLength": false,
   "newFileLocation": "folder",
   "newFileFolderPath": "dots",
-  "attachmentFolderPath": "assets"
+  "attachmentFolderPath": "assets",
+  "alwaysUpdateLinks": true
 }

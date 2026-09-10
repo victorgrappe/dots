@@ -19,8 +19,8 @@ views:
     order:
       - file.name
       - class
-      - formula.class__path
       - type
+      - formula.class__path
       - formula.path
     sort:
       - property: class

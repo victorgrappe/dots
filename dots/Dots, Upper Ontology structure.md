@@ -70,3 +70,88 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 | class | a "is a" b  |     |     |
 | type  | a "has a" b |     |     |
 |       |             |     |     |
+
+
+
+# Resources
+
+- [[Upper ontology]], [[Formal ontology]]
+	- [[BFO (Basic Formal Ontology)]]
+		- https://github.com/bfo-ontology/bfo
+	- [[GFO (General Formal Ontology)]]
+	- [[UFO (Unified Foundational Ontology)]]
+	- [[BORO (Business Objects Reference Ontology)]]
+	- [[CIDOC CRM (Conceptual Reference Model)]]
+	- [[Cyc]]
+	- [[UMBEL]]
+	- [[DOLCE]]
+	- [[SUMO (Suggested Upper Merged Ontology)]]
+
+- [[Ontology]], [[Ontology (philisophy)]]
+	- [[Mereology]] (Part-whole relationships)
+		- [[Meronomy]] (hierarchy that deals with part–whole relationships, in contrast to a taxonomy whose categorisation is based on discrete sets)
+	- https://en.wikipedia.org/wiki/Meronomy
+	- https://en.wikipedia.org/wiki/Meronymy_and_holonymy
+
+
+
+
+- [[formal system]]
+	- [[lambda calculus]]
+		- [[typed lambda calculus]]
+			- [[Pure type system]]
+				- [[System U]]
+
+
+
+
+
+
+
+https://en.wikipedia.org/wiki/Process_Specification_Language
+https://en.wikipedia.org/wiki/Process_ontology
+https://en.wikipedia.org/wiki/Common_Logic
+https://en.wikipedia.org/wiki/Plant_lifecycle_management
+https://en.wikipedia.org/wiki/Whitehead's_point-free_geometry
+https://en.wikipedia.org/wiki/Alfred_North_Whitehead
+https://en.wikipedia.org/wiki/Process_philosophy
+https://en.wikipedia.org/wiki/Geospatial_topology
+https://en.wikipedia.org/wiki/Anatomical_terms_of_location
+https://en.wikipedia.org/wiki/Geometric_terms_of_location
+https://en.wikipedia.org/wiki/Free_body_diagram
+https://en.wikipedia.org/wiki/Chirality
+
+https://en.wikipedia.org/wiki/Simple_Knowledge_Organization_System
+https://en.wikipedia.org/wiki/Knowledge_organization_system
+
+
+
+https://en.wikipedia.org/wiki/Reflexive_relation
+https://en.wikipedia.org/wiki/Spatial_relation
+https://en.wikipedia.org/wiki/Equivalence_relation
+
+
+https://en.wikipedia.org/wiki/Ontology_engineering
+https://en.wikipedia.org/wiki/Ontology_components
+https://en.wikipedia.org/wiki/Phylogenetic_tree
+https://en.wikipedia.org/wiki/Natural_language
+https://en.wikipedia.org/wiki/Primitive_notion
+
+
+
+https://en.wikipedia.org/wiki/Hierarchy
+https://en.wikipedia.org/wiki/Hierarchy#Subsumptive_containment_hierarchy
+https://en.wikipedia.org/wiki/Element_of_a_set
+https://en.wikipedia.org/wiki/Subset
+https://en.wikipedia.org/wiki/Involution_(mathematics)
+https://en.wikipedia.org/wiki/Arity
+
+https://en.wikipedia.org/wiki/OntoClean
+https://fr.slideshare.net/slideshow/onto-clean-methodology/7187577#2
+
+
+
+https://plato.stanford.edu/entries/material-constitution/
+
+
+Statue and Lump" paradox
