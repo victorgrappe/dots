@@ -34,8 +34,7 @@
               "title": "AGENTS"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -232,8 +231,9 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "97b41422c7260903",
+  "active": "30613bd5adff3b90",
   "lastOpenFiles": [
+    "AGENTS.md",
     "dots/Dots, Upper Ontology structure.md",
     "dots/Formal ontology.md",
     "dots/BFO (Basic Formal Ontology) 2.md",
@@ -261,7 +261,6 @@
     "assets",
     "dots/Pasta alla Carbonara.md",
     "dots/ZUCC.md",
-    "dots/Aliment.md",
     "dots/template",
     "dots/base",
     "templates/scripts/syncRun.js",
