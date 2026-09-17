@@ -1,6 +1,6 @@
 filters:
   and:
-    - file.folder == "dots"
+    - file.folder.endsWith("dot")
 formulas:
   class__1: if(note.class, note.class, note.type)
   class__2: formula.class__1.asFile().properties.class
@@ -14,7 +14,7 @@ formulas:
   class__path: if(formula.class__dir, formula.class__dir + "." + file.name, file.name)
   path: if(formula.class__dir, formula.class__dir + if(note.class, ".", "--") + file.name, file.name)
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
-  wikipedia__url__button: 'if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " style=display:inline-block;padding-inline:8px;padding-block:2px;border-radius:var(--radius-s);background:var(--interactive-normal);box-shadow:var(--input-shadow);color:var(--text-normal);text-decoration:none;font-size:var(--font-ui-smaller)>Wikipedia ↗</a>"))'
+  wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " style=display:inline-block;padding-inline:8px;padding-block:2px;border-radius:var(--radius-s);background:var(--interactive-normal);box-shadow:var(--input-shadow);color:var(--text-normal);text-decoration:none;font-size:var(--font-ui-smaller)>Wikipedia ↗</a>"))
 views:
   - type: table
     name: Dot
@@ -22,17 +22,21 @@ views:
       - file.name
       - class
       - type
+      - file.path
       - formula.class__path
       - formula.path
       - wikidata__cd
       - formula.wikipedia__url
       - formula.wikipedia__url__button
       - uri
+      - file.mtime
     sort:
+      - property: file.mtime
+        direction: DESC
       - property: class
         direction: DESC
     columnSize:
-      file.name: 174
+      file.name: 280
       note.class: 98
       formula.class__path: 312
   - type: table
@@ -58,3 +62,27 @@ views:
       formula.class__dir: 131
       formula.class__path: 158
       formula.class__8: 96
+  - type: table
+    name: Dot Test
+    order:
+      - file.name
+      - class
+      - type
+      - file.path
+      - formula.class__path
+      - formula.path
+      - wikidata__cd
+      - formula.wikipedia__url
+      - formula.wikipedia__url__button
+      - uri
+      - file.mtime
+      - file.folder
+    sort:
+      - property: file.mtime
+        direction: DESC
+      - property: class
+        direction: DESC
+    columnSize:
+      file.name: 174
+      note.class: 98
+      formula.class__path: 312

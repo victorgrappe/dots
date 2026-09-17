@@ -1,7 +1,9 @@
 {
   "readableLineLength": false,
   "newFileLocation": "folder",
-  "newFileFolderPath": "dots",
-  "attachmentFolderPath": "assets",
-  "alwaysUpdateLinks": true
+  "newFileFolderPath": "dots/dot",
+  "attachmentFolderPath": "dots/asset",
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "shortest",
+  "showUnsupportedFiles": true
 }
