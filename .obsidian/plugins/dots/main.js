@@ -11,9 +11,17 @@ const SCRIPTS_DIR = '.obsidian/plugins/dots/scripts';
 // button built from it. The same class is used by dots/base/dots.base.
 const WIKIDATA_KEY = 'wikidata__cd';
 const WIKI_BUTTON_CLASS = 'dots-wiki-button';
-// Only our own copies carry this one. A base embedded in a note renders
+// Only our own row carries this one. A base embedded in a note renders
 // wikipedia__url__button into the same contentEl, and must survive the teardown.
-const WIKI_NOTE_CLASS = 'dots-wiki-button--note';
+const WIKI_ROW_CLASS = 'dots-dot-links';
+
+// One entry per service: a script in scripts/ turning a Q-code into a URL, plus
+// how to label it. Left to right in the note, and in the tab's icon strip.
+// Adding a service is this list plus its scripts/ file — nothing else.
+const WIKI_LINKS = [
+  { fn: 'wikipediaUrl', label: 'Wikipedia', icon: 'external-link', title: 'Open Wikipedia article' },
+  { fn: 'wikidataGraphUrl', label: 'Wikidata Graph', icon: 'git-fork', title: 'Open Wikidata graph' },
+];
 
 // Bases keys its function registry by lowercased name, so registering one of
 // these would silently shadow the built-in and break every formula using it.
@@ -160,38 +168,50 @@ module.exports = class Dots extends Plugin {
 
     // Tear down first: this both prevents duplicates when an event fires twice and
     // makes the button vanish the moment its Q-code is deleted from the note.
-    view.contentEl.querySelectorAll('.' + WIKI_NOTE_CLASS).forEach((el) => el.remove());
-    view.dotsWikiAction?.remove();
-    view.dotsWikiAction = null;
+    view.contentEl.querySelectorAll('.' + WIKI_ROW_CLASS).forEach((el) => el.remove());
+    view.dotsWikiActions?.forEach((el) => el.remove());
+    view.dotsWikiActions = [];
 
     const qcode = view.file && this.app.metadataCache.getFileCache(view.file)?.frontmatter?.[WIKIDATA_KEY];
-    // wikipediaUrl.js is the single definition of the URL shape; if it failed to
-    // load, degrade quietly rather than inline a second copy of it here.
-    if (!qcode || typeof this.fns.wikipediaUrl !== 'function') return;
-    const url = this.fns.wikipediaUrl(qcode);
+    if (!qcode) return;
+
+    // scripts/ holds the single definition of each URL shape; drop any entry whose
+    // script failed to load rather than inlining a second copy of it here.
+    const links = WIKI_LINKS.filter((l) => typeof this.fns[l.fn] === 'function')
+      .map((l) => ({ ...l, url: this.fns[l.fn](qcode) }));
+    if (!links.length) return;
 
     // `.metadata-container` is the properties block. It is not in obsidian.d.ts and
     // carries no compatibility promise, hence the fallback below. A MarkdownView can
     // hold a source view and a preview view at once, each with its own block.
     const anchors = view.contentEl.querySelectorAll('.metadata-container');
     if (anchors.length) {
-      anchors.forEach((anchor) => anchor.insertAdjacentElement('afterend', this.wikiButton(url)));
+      anchors.forEach((anchor) => anchor.insertAdjacentElement('afterend', this.wikiRow(links)));
     } else {
       // Properties hidden, or the class was renamed: better above the note than gone.
-      view.contentEl.prepend(this.wikiButton(url));
+      view.contentEl.prepend(this.wikiRow(links));
     }
 
-    // addAction has no dedupe of its own, so keep the element to remove it above.
-    view.dotsWikiAction = view.addAction('external-link', 'Open Wikipedia article', () =>
-      window.open(url, '_blank')
-    );
+    // addAction has no dedupe of its own, so keep the elements to remove them above.
+    for (const link of links) {
+      view.dotsWikiActions.push(
+        view.addAction(link.icon, link.title, () => window.open(link.url, '_blank'))
+      );
+    }
   }
 
-  wikiButton(url) {
-    const el = createEl('a', { cls: [WIKI_BUTTON_CLASS, WIKI_NOTE_CLASS], href: url, text: 'Wikipedia \u2197' });
-    // Obsidian only intercepts anchors inside rendered markdown; this one is ours.
-    el.onclick = (e) => { e.preventDefault(); window.open(url, '_blank'); };
-    return el;
+  wikiRow(links) {
+    const row = createEl('div', { cls: WIKI_ROW_CLASS });
+    for (const link of links) {
+      const el = row.createEl('a', {
+        cls: WIKI_BUTTON_CLASS,
+        href: link.url,
+        text: `${link.label} \u2197`,
+      });
+      // Obsidian only intercepts anchors inside rendered markdown; these are ours.
+      el.onclick = (e) => { e.preventDefault(); window.open(link.url, '_blank'); };
+    }
+    return row;
   }
 
   async loadScripts() {

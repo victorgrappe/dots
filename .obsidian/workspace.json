@@ -11,19 +11,6 @@
             "id": "44b0953d2d2e2ca9",
             "type": "leaf",
             "state": {
-              "type": "bases",
-              "state": {
-                "file": "dots/base/dots.base",
-                "viewName": "Dot"
-              },
-              "icon": "lucide-table",
-              "title": "dots"
-            }
-          },
-          {
-            "id": "8d62525df1010659",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
                 "file": "dots/dot/Dots, Upper Ontology structure.md",
@@ -35,17 +22,17 @@
             }
           },
           {
-            "id": "5ea22be67119ba80",
+            "id": "9c55b1d15f265208",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "dots/dot/BFO (Basic Formal Ontology).md",
+                "file": "dots/dot/property.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BFO (Basic Formal Ontology)"
+              "title": "property"
             }
           }
         ],
@@ -246,17 +233,17 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "8d62525df1010659",
+  "active": "9c55b1d15f265208",
   "lastOpenFiles": [
-    "dots/dot/BFO (Basic Formal Ontology).md",
     "dots/dot/Dots, Upper Ontology structure.md",
-    "dots/dot/GFO (General Formal Ontology).md",
+    "dots/base/dots.base",
+    "dots/dot/property.md",
     "dots/dot/chirality.md",
     "dots/dot/arity.md",
-    "dots/dot/property.md",
+    "dots/dot/BFO (Basic Formal Ontology).md",
+    "dots/dot/GFO (General Formal Ontology).md",
     "dots/dot/Lambda calculus.md",
     "dots/dot/Formal system.md",
-    "dots/base/dots.base",
     "dots/dot/BFO (Basic Formal Ontology) 2.md",
     "remote/dot/Bye.md",
     "broken links output.md",
@@ -281,7 +268,6 @@
     "dots/dot/Formal ontology.md",
     "dots/dot/UFO (Unified Foundational Ontology).md",
     "dots/dot/Meronomy.md",
-    "dots/dot/Ontology.md",
     "dots/asset",
     "dots/dot__template"
   ]

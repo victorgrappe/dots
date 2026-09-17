@@ -13,13 +13,17 @@
   cursor: pointer;
 }
 
-/* Only the copy main.js injects into a note needs to clear the properties block;
-   inside a Bases cell the same margin would push the row open. */
-.dots-wiki-button--note {
+/* The row main.js injects under a note's properties. The spacing lives here and
+   not on the button, so a button inside a Bases cell stays flush in its row. */
+.dots-dot-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
   margin-block-start: var(--size-4-2);
   /* The properties block sits in a column flex container (.cm-sizer in Live
-     Preview), whose default align-self: stretch would widen the button to the
-     full note width; width covers the non-flex parent in Reading mode. */
+     Preview), whose default align-self: stretch would widen the row to the full
+     note width; width covers the non-flex parent in Reading mode. */
   align-self: flex-start;
   width: fit-content;
   max-width: 100%;
