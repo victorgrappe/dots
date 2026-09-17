@@ -45,7 +45,7 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 | **Value → type**         | "this thing *is an* Apple"              | `instanceOf`             | `apple_1 ∈ Apple` | `apple_1 : Apple`                        | global element `1 → Apple` | `apple_1 :: Apple`                  | `apple_1 : Apple` (unchanged; a point of a space)                                                  |
 | **Type → supertype**     | "every Apple *is a* Fruit"              | `subclassOf` / `extends` | `Apple ⊂ Fruit`   | `Apple <: Fruit` (subtyping)             | mono `Apple ↪ Fruit`       | constructor of a sum type           | embedding `Σ (f : Fruit), IsApple f` with `IsApple` a proposition                                  |
 | **Type → interface**     | "an Apple *can be used* like any Fruit" | implements               | predicate on sets | `Apple : Fruit`, `Fruit : Type → Type`   | algebras / functors        | `instance Fruit Apple` (type class) | same as type theory; structure identity principle makes equivalent implementations interchangeable |
-| **Type → type of types** | "Apple *is a* kind"                     | metaclass `Apple : type` | `Apple ∈ 𝒫(U)`    | universe `Apple : Type : Type₁`          | object of `Cat`            | kind `Apple :: Type`                | `Apple : Type`, but `Type` is just another space whose paths are equivalences                      |
+| **Type → type of types** | "Apple *is a* kind"                     | metaclass `Apple : type` | `Apple ∈ 𝒫(U)`   | universe `Apple : Type : Type₁`          | object of `Cat`            | kind `Apple :: Type`                | `Apple : Type`, but `Type` is just another space whose paths are equivalences                      |
 | **Same-as**              | "these two are *the same*"              | `==` / `equals()`        | `=` (extensional) | propositional `a = b`, distinct from `≅` | isomorphism `A ≅ B`        | `Eq` instance / pattern equality    | path `a ≡ b`; univalence: `(A ≡ B) ≃ (A ≃ B)`                                                      |
 
 ## Reading the matrix
@@ -65,11 +65,11 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
-|       |             |     |     |
-| ----- | ----------- | --- | --- |
-| class | a "is a" b  |     |     |
-| type  | a "has a" b |     |     |
-|       |             |     |     |
+| code  | description | example |     |
+| ----- | ----------- | ------- | --- |
+| class | a "is a" b  |         |     |
+| type  | a "has a" b |         |     |
+|       |             |         |     |
 
 
 
@@ -96,8 +96,8 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
-- [[formal system]]
-	- [[lambda calculus]]
+- [[Formal system]]
+	- [[Lambda calculus]]
 		- [[typed lambda calculus]]
 			- [[Pure type system]]
 				- [[System U]]
@@ -105,6 +105,28 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
+
+
+- [[property]]
+	- [[chirality]]
+	- [[arity]]
+
+
+
+
+
+
+https://en.wikipedia.org/wiki/Reflexive_relation
+https://en.wikipedia.org/wiki/Spatial_relation
+https://en.wikipedia.org/wiki/Equivalence_relation
+
+
+
+https://en.wikipedia.org/wiki/Hierarchy
+https://en.wikipedia.org/wiki/Hierarchy#Subsumptive_containment_hierarchy
+https://en.wikipedia.org/wiki/Element_of_a_set
+https://en.wikipedia.org/wiki/Subset
+https://en.wikipedia.org/wiki/Involution_(mathematics)
 
 
 
@@ -119,16 +141,13 @@ https://en.wikipedia.org/wiki/Geospatial_topology
 https://en.wikipedia.org/wiki/Anatomical_terms_of_location
 https://en.wikipedia.org/wiki/Geometric_terms_of_location
 https://en.wikipedia.org/wiki/Free_body_diagram
-https://en.wikipedia.org/wiki/Chirality
+
 
 https://en.wikipedia.org/wiki/Simple_Knowledge_Organization_System
 https://en.wikipedia.org/wiki/Knowledge_organization_system
 
 
 
-https://en.wikipedia.org/wiki/Reflexive_relation
-https://en.wikipedia.org/wiki/Spatial_relation
-https://en.wikipedia.org/wiki/Equivalence_relation
 
 
 https://en.wikipedia.org/wiki/Ontology_engineering
@@ -139,12 +158,7 @@ https://en.wikipedia.org/wiki/Primitive_notion
 
 
 
-https://en.wikipedia.org/wiki/Hierarchy
-https://en.wikipedia.org/wiki/Hierarchy#Subsumptive_containment_hierarchy
-https://en.wikipedia.org/wiki/Element_of_a_set
-https://en.wikipedia.org/wiki/Subset
-https://en.wikipedia.org/wiki/Involution_(mathematics)
-https://en.wikipedia.org/wiki/Arity
+
 
 https://en.wikipedia.org/wiki/OntoClean
 https://fr.slideshare.net/slideshow/onto-clean-methodology/7187577#2

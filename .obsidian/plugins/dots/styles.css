@@ -1,0 +1,32 @@
+/* Wikipedia button: injected under the properties block by main.js, and reused
+   by the wikipedia__url__button formula in dots/base/dots.base. */
+.dots-wiki-button {
+  display: inline-block;
+  padding-inline: 8px;
+  padding-block: 2px;
+  border-radius: var(--radius-s);
+  background: var(--interactive-normal);
+  box-shadow: var(--input-shadow);
+  color: var(--text-normal);
+  text-decoration: none;
+  font-size: var(--font-ui-smaller);
+  cursor: pointer;
+}
+
+/* Only the copy main.js injects into a note needs to clear the properties block;
+   inside a Bases cell the same margin would push the row open. */
+.dots-wiki-button--note {
+  margin-block-start: var(--size-4-2);
+  /* The properties block sits in a column flex container (.cm-sizer in Live
+     Preview), whose default align-self: stretch would widen the button to the
+     full note width; width covers the non-flex parent in Reading mode. */
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.dots-wiki-button:hover {
+  background: var(--interactive-hover);
+  color: var(--text-normal);
+  text-decoration: none;
+}
