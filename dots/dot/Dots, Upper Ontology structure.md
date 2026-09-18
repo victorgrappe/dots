@@ -75,19 +75,18 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 # Resources
 
-- [[Upper ontology]], [[Formal ontology]]
-	- [[BFO (Basic Formal Ontology)]]
-		- https://github.com/bfo-ontology/bfo
-	- [[GFO (General Formal Ontology)]]
-	- [[UFO (Unified Foundational Ontology)]]
-	- [[BORO (Business Objects Reference Ontology)]]
-	- [[CIDOC CRM (Conceptual Reference Model)]]
-	- [[Cyc]]
-	- [[UMBEL]]
-	- [[DOLCE]]
-	- [[SUMO (Suggested Upper Merged Ontology)]]
 
-- [[Ontology]], [[Ontology (philisophy)]]
+
+
+
+![[upper ontology]]
+
+
+
+[[Formal ontology]] 
+
+
+- [[ontology]], [[Ontology (philisophy)]]
 	- [[Mereology]] (Part-whole relationships)
 		- [[Meronomy]] (hierarchy that deals with part–whole relationships, in contrast to a taxonomy whose categorisation is based on discrete sets)
 	- https://en.wikipedia.org/wiki/Meronomy
@@ -106,11 +105,7 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
-
-- [[property]]
-	- [[chirality]]
-	- [[arity]]
-
+![[property]]
 
 
 

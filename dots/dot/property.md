@@ -5,3 +5,5 @@ description: Predominant feature that characterizes a being, a thing, a phenomen
 
 
 
+
+![[dots.base#Dot.subclass]]

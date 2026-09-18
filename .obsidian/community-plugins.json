@@ -1,7 +1,6 @@
 [
-  "dots",
   "table-editor-obsidian",
   "obsidian-git",
-  "obsidian-excalidraw-plugin",
-  "find-unlinked-files"
+  "find-unlinked-files",
+  "obsidian-excalidraw-plugin"
 ]
