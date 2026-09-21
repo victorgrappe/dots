@@ -94,16 +94,22 @@ views:
         - note.class.isEmpty() == false
         - formula.class__ancestors.contains(this.file.name)
     order:
-      - file.name
-      - description
       - class
+      - file.name
+      - name__fr
+      - description
       - formula.class__path
       - file.mtime
     sort:
+      - property: class
+        direction: ASC
+      - property: file.name
+        direction: ASC
       - property: formula.class__path
         direction: ASC
     columnSize:
-      file.name: 387
-      note.description: 545
       note.class: 195
-      formula.class__path: 351
+      file.name: 193
+      note.name__fr: 273
+      note.description: 969
+      formula.class__path: 265
