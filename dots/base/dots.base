@@ -1,6 +1,6 @@
 filters:
   and:
-    - file.folder == "dots"
+    - file.folder.endsWith("dot")
 formulas:
   class__1: if(note.class, note.class, note.type)
   class__2: formula.class__1.asFile().properties.class
@@ -10,11 +10,12 @@ formulas:
   class__6: formula.class__5.asFile().properties.class
   class__7: formula.class__6.asFile().properties.class
   class__8: formula.class__7.asFile().properties.class
+  class__ancestors: "[formula.class__1, formula.class__2, formula.class__3, formula.class__4, formula.class__5, formula.class__6, formula.class__7, formula.class__8].filter(value).map(value.asFile().name)"
   class__dir: '[formula.class__8, formula.class__7, formula.class__6, formula.class__5, formula.class__4, formula.class__3, formula.class__2, formula.class__1].filter(value).map(value.asFile().name).join(".")'
   class__path: if(formula.class__dir, formula.class__dir + "." + file.name, file.name)
   path: if(formula.class__dir, formula.class__dir + if(note.class, ".", "--") + file.name, file.name)
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
-  wikipedia__url__button: 'if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " style=display:inline-block;padding-inline:8px;padding-block:2px;border-radius:var(--radius-s);background:var(--interactive-normal);box-shadow:var(--input-shadow);color:var(--text-normal);text-decoration:none;font-size:var(--font-ui-smaller)>Wikipedia ↗</a>"))'
+  wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " class=dots-wiki-button>Wikipedia ↗</a>"))
 views:
   - type: table
     name: Dot
@@ -22,17 +23,21 @@ views:
       - file.name
       - class
       - type
+      - file.path
       - formula.class__path
       - formula.path
       - wikidata__cd
       - formula.wikipedia__url
       - formula.wikipedia__url__button
       - uri
+      - file.mtime
     sort:
+      - property: file.mtime
+        direction: DESC
       - property: class
         direction: DESC
     columnSize:
-      file.name: 174
+      file.name: 280
       note.class: 98
       formula.class__path: 312
   - type: table
@@ -58,3 +63,53 @@ views:
       formula.class__dir: 131
       formula.class__path: 158
       formula.class__8: 96
+  - type: table
+    name: Dot Test
+    order:
+      - file.name
+      - class
+      - type
+      - file.path
+      - formula.class__path
+      - formula.path
+      - wikidata__cd
+      - formula.wikipedia__url
+      - formula.wikipedia__url__button
+      - uri
+      - file.mtime
+      - file.folder
+    sort:
+      - property: file.mtime
+        direction: DESC
+      - property: class
+        direction: DESC
+    columnSize:
+      file.name: 174
+      note.class: 98
+      formula.class__path: 312
+  - type: table
+    name: Dot.subclass
+    filters:
+      and:
+        - note.class.isEmpty() == false
+        - formula.class__ancestors.contains(this.file.name)
+    order:
+      - class
+      - file.name
+      - name__fr
+      - description
+      - formula.class__path
+      - file.mtime
+    sort:
+      - property: class
+        direction: ASC
+      - property: file.name
+        direction: ASC
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      note.class: 195
+      file.name: 193
+      note.name__fr: 273
+      note.description: 969
+      formula.class__path: 265

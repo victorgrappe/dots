@@ -82,7 +82,15 @@ sync apply      <- actually writes
   - `.obsidian/plugins/dots/` — local plugin. Runs plain-JS functions from
     `scripts/` via ```` ```dots ```` code blocks in notes; one function per file,
     file name = function name. Edit a script, then run the **Dots: reload scripts**
-    command in Obsidian. See `dots/Dots demo.md`.
+    command in Obsidian. See `dots/Dots demo.md`. Editing `main.js` itself needs a
+    plugin toggle or an app reload — the command only re-reads `scripts/`.
+    The plugin also decorates notes: any dot with a `wikidata__cd` gets a row of
+    buttons under its properties block, plus one tab icon each. The row is driven
+    by the `WIKI_LINKS` table in `main.js` — currently **Wikipedia ↗**
+    (`scripts/wikipediaUrl.js`) and **Wikidata Graph ↗**
+    (`scripts/wikidataGraphUrl.js`). Adding a service means one `scripts/` file and
+    one `WIKI_LINKS` entry. Styling lives in `styles.css`, whose `.dots-wiki-button`
+    class the `wikipedia__url__button` formula in `dots.base` reuses.
 - `assets/` — vault assets. *Currently empty.*
 
 ## Notes for agents

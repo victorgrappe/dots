@@ -3,9 +3,25 @@
 // 1. Loads every .js file in scripts/ (each file exports one function).
 // 2. Renders ```dots code blocks as buttons that call those functions.
 // 3. Scripts opting in with `bases = true` also become Bases formula functions.
-const { Plugin, Notice } = require('obsidian');
+const { Plugin, Notice, MarkdownView } = require('obsidian');
  
 const SCRIPTS_DIR = '.obsidian/plugins/dots/scripts';
+
+// Frontmatter key holding a Wikidata Q-code, and the class styles.css gives the
+// button built from it. The same class is used by dots/base/dots.base.
+const WIKIDATA_KEY = 'wikidata__cd';
+const WIKI_BUTTON_CLASS = 'dots-wiki-button';
+// Only our own row carries this one. A base embedded in a note renders
+// wikipedia__url__button into the same contentEl, and must survive the teardown.
+const WIKI_ROW_CLASS = 'dots-dot-links';
+
+// One entry per service: a script in scripts/ turning a Q-code into a URL, plus
+// how to label it. Left to right in the note, and in the tab's icon strip.
+// Adding a service is this list plus its scripts/ file — nothing else.
+const WIKI_LINKS = [
+  { fn: 'wikipediaUrl', label: 'Wikipedia', icon: 'external-link', title: 'Open Wikipedia article' },
+  { fn: 'wikidataGraphUrl', label: 'Wikidata Graph', icon: 'git-fork', title: 'Open Wikidata graph' },
+];
 
 // Bases keys its function registry by lowercased name, so registering one of
 // these would silently shadow the built-in and break every formula using it.
@@ -81,6 +97,17 @@ module.exports = class Dots extends Plugin {
     this.fns = {};                                   // name -> function
     await this.loadScripts();
 
+    // Every note with a Q-code gets a Wikipedia button under its properties and an
+    // icon in its tab. Both are rebuilt from scratch on each of these events, so
+    // decorate() has to be idempotent — see the teardown at the top of it.
+    const refresh = () => this.scheduleWikipedia();
+    this.app.workspace.onLayoutReady(refresh);
+    this.registerEvent(this.app.workspace.on('layout-change', refresh));
+    this.registerEvent(this.app.workspace.on('active-leaf-change', refresh));
+    this.registerEvent(this.app.metadataCache.on('changed', refresh));
+    // Reading mode rebuilds its sizer on every re-render, dropping our node with it.
+    this.registerMarkdownPostProcessor(refresh);
+
 
 
     // Auto-reload: watch scripts/ on disk (desktop only).
@@ -114,6 +141,79 @@ module.exports = class Dots extends Plugin {
     });
   }
  
+  // Coalesce the event storm above into one pass, and let Obsidian finish the
+  // render that triggered it before we reach into the DOM it just built.
+  scheduleWikipedia() {
+    if (this.wikiPending) return;
+    this.wikiPending = true;
+    window.setTimeout(() => {
+      this.wikiPending = false;
+      if (this._loaded !== false) this.refreshWikipedia();
+    }, 0);
+  }
+
+  refreshWikipedia() {
+    for (const leaf of this.app.workspace.getLeavesOfType('markdown')) {
+      try {
+        this.decorate(leaf.view);
+      } catch (e) {
+        console.error('Dots: Wikipedia button failed', e);
+      }
+    }
+  }
+
+  // Add (or remove) the Wikipedia affordances on one note view.
+  decorate(view) {
+    if (!(view instanceof MarkdownView)) return;
+
+    // Tear down first: this both prevents duplicates when an event fires twice and
+    // makes the button vanish the moment its Q-code is deleted from the note.
+    view.contentEl.querySelectorAll('.' + WIKI_ROW_CLASS).forEach((el) => el.remove());
+    view.dotsWikiActions?.forEach((el) => el.remove());
+    view.dotsWikiActions = [];
+
+    const qcode = view.file && this.app.metadataCache.getFileCache(view.file)?.frontmatter?.[WIKIDATA_KEY];
+    if (!qcode) return;
+
+    // scripts/ holds the single definition of each URL shape; drop any entry whose
+    // script failed to load rather than inlining a second copy of it here.
+    const links = WIKI_LINKS.filter((l) => typeof this.fns[l.fn] === 'function')
+      .map((l) => ({ ...l, url: this.fns[l.fn](qcode) }));
+    if (!links.length) return;
+
+    // `.metadata-container` is the properties block. It is not in obsidian.d.ts and
+    // carries no compatibility promise, hence the fallback below. A MarkdownView can
+    // hold a source view and a preview view at once, each with its own block.
+    const anchors = view.contentEl.querySelectorAll('.metadata-container');
+    if (anchors.length) {
+      anchors.forEach((anchor) => anchor.insertAdjacentElement('afterend', this.wikiRow(links)));
+    } else {
+      // Properties hidden, or the class was renamed: better above the note than gone.
+      view.contentEl.prepend(this.wikiRow(links));
+    }
+
+    // addAction has no dedupe of its own, so keep the elements to remove them above.
+    for (const link of links) {
+      view.dotsWikiActions.push(
+        view.addAction(link.icon, link.title, () => window.open(link.url, '_blank'))
+      );
+    }
+  }
+
+  wikiRow(links) {
+    const row = createEl('div', { cls: WIKI_ROW_CLASS });
+    for (const link of links) {
+      const el = row.createEl('a', {
+        cls: WIKI_BUTTON_CLASS,
+        href: link.url,
+        text: `${link.label} \u2197`,
+      });
+      // Obsidian only intercepts anchors inside rendered markdown; these are ours.
+      el.onclick = (e) => { e.preventDefault(); window.open(link.url, '_blank'); };
+    }
+    return row;
+  }
+
   async loadScripts() {
     const { files } = await this.app.vault.adapter.list(SCRIPTS_DIR);
     for (const path of files.filter((f) => f.endsWith('.js'))) {
