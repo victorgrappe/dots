@@ -94,22 +94,38 @@ views:
         - note.class.isEmpty() == false
         - formula.class__ancestors.contains(this.file.name)
     order:
-      - class
+      - formula.class__path
       - file.name
       - name__fr
       - description
-      - formula.class__path
       - file.mtime
     sort:
-      - property: class
-        direction: ASC
-      - property: file.name
-        direction: ASC
       - property: formula.class__path
         direction: ASC
     columnSize:
-      note.class: 195
+      formula.class__path: 526
       file.name: 193
       note.name__fr: 273
       note.description: 969
-      formula.class__path: 265
+  - type: table
+    name: Financial Instrument
+    filters:
+      and:
+        - formula.class__ancestors.contains("Financial Instrument")
+    order:
+      - formula.class__path
+      - file.name
+      - name__fr
+      - description
+      - formula.wikipedia__url__button
+      - fibo__uri
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 483
+      file.name: 168
+      note.name__fr: 192
+      note.description: 932
+      formula.wikipedia__url__button: 104
+      note.fibo__uri: 114

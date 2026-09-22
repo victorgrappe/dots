@@ -1,4 +1,5 @@
 ---
+class: "[[Organization]]"
 wikidata__cd: Q5970856
 description: " Nonprofit organization that sets corporate reporting standards for the capital markets"
 uri: https://www.ifrs.org/
