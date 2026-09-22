@@ -98,15 +98,19 @@ views:
       - file.name
       - name__fr
       - description
+      - uri
+      - wikidata__cd
+      - formula.wikipedia__url
       - file.mtime
     sort:
       - property: formula.class__path
         direction: ASC
     columnSize:
       formula.class__path: 526
-      file.name: 193
+      file.name: 188
       note.name__fr: 273
-      note.description: 969
+      note.description: 702
+      note.uri: 427
   - type: table
     name: Financial Instrument
     filters:
@@ -129,3 +133,8 @@ views:
       note.description: 932
       formula.wikipedia__url__button: 104
       note.fibo__uri: 114
+  - type: table
+    name: Country
+    filters:
+      and:
+        - type == link("Country")
