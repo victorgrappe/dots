@@ -107,8 +107,8 @@ views:
         direction: ASC
     columnSize:
       formula.class__path: 526
-      file.name: 188
-      note.name__fr: 273
+      file.name: 441
+      note.name__fr: 411
       note.description: 702
       note.uri: 427
   - type: table
@@ -138,3 +138,8 @@ views:
     filters:
       and:
         - type == link("Country")
+    order:
+      - file.name
+      - country_a2
+      - country_a3
+      - country_n3
