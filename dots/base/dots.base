@@ -143,3 +143,36 @@ views:
       - country_a2
       - country_a3
       - country_n3
+  - type: table
+    name: Relation
+    filters:
+      and:
+        - class == link("Relation")
+    order:
+      - file.name
+      - class__order
+      - description
+      - example
+    sort:
+      - property: class__order
+        direction: ASC
+    columnSize:
+      file.name: 171
+    rowHeight: medium
+  - type: table
+    name: Aliment
+    filters:
+      and:
+        - formula.class__ancestors.contains(this.file.name)
+        - "!class.isEmpty()"
+    order:
+      - formula.class__path
+      - file.name
+      - wikidata__cd
+      - description
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 528
+      file.name: 197

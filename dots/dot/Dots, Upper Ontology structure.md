@@ -1,7 +1,3 @@
----
-class:
-type:
----
 
 
 # Need
@@ -43,12 +39,14 @@ This is the actual model that we will use to represent the situation
 
 - The 
 
+![[dots.base#Relation]]
+
 | code   | name             | description | example                                                                                       | Wikipedia Property                                                               | RDF                                                                | inverse |
 | ------ | ---------------- | ----------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------- |
-| type   | is of type       |             | - Mont Blanc `is of type` Mountain<br>- Leonhard Euler `is of type` Human                     | - instance of<br>- https://www.wikidata.org/wiki/Property:P31                    | - type<br>- https://www.w3.org/1999/02/22-rdf-syntax-ns#type       |         |
-| type_  | is the type of   |             | - Mountain is the type of Mont Blanc and Evrest<br>- Human is the type of Leonhard Euler      | - has instance<br>- https://www.wikidata.org/wiki/Q65933034                      |                                                                    |         |
 | class  | is a class of    |             | - Volcano is a class of Mountain<br>- Apple is a class of Fruit<br>- Cat is a class of Animal | - subclass of<br>- https://www.wikidata.org/wiki/Property:P279                   | - subClassOf<br>- https://www.w3.org/2000/01/rdf-schema#subClassOf |         |
 | class_ |                  |             |                                                                                               | - superclass of<br>- https://www.wikidata.org/wiki/Q66088480                     |                                                                    |         |
+| type   | is of type       |             | - Mont Blanc `is of type` Mountain<br>- Leonhard Euler `is of type` Human                     | - instance of<br>- https://www.wikidata.org/wiki/Property:P31                    | - type<br>- https://www.w3.org/1999/02/22-rdf-syntax-ns#type       |         |
+| type_  | is the type of   |             | - Mountain is the type of Mont Blanc and Evrest<br>- Human is the type of Leonhard Euler      | - has instance<br>- https://www.wikidata.org/wiki/Q65933034                      |                                                                    |         |
 | part   | is a part of     |             | - Ear `is a part of` Head<br>- Lake Ontario `is a part of` Great Lakes                        | - part of<br>- https://www.wikidata.org/wiki/Property:P361                       |                                                                    |         |
 | part_  | has parts        |             |                                                                                               | - has part(s)<br>- https://www.wikidata.org/wiki/Property:P527                   |                                                                    |         |
 |        |                  |             |                                                                                               |                                                                                  |                                                                    |         |
@@ -135,7 +133,7 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
-![[property]]
+![[Property]]
 
 
 
