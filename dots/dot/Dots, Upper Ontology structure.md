@@ -107,14 +107,14 @@ Example: `apple_1`, `apple_2` are instances of `Apple`; `Apple` is a subclass of
 
 
 
-![[upper ontology]]
+![[Upper Ontology]]
 
 
 
 [[Formal ontology]] 
 
 
-- [[ontology]], [[Ontology (philisophy)]]
+- [[Ontology]], [[Ontology (philisophy)]]
 	- [[Mereology]] (Part-whole relationships)
 		- [[Meronomy]] (hierarchy that deals with part–whole relationships, in contrast to a taxonomy whose categorisation is based on discrete sets)
 	- https://en.wikipedia.org/wiki/Meronomy

@@ -32,19 +32,23 @@ views:
       - uri
       - file.mtime
     sort:
+      - property: file.name
+        direction: ASC
       - property: file.mtime
         direction: DESC
       - property: class
         direction: DESC
     columnSize:
-      file.name: 280
-      note.class: 98
+      file.name: 355
+      note.class: 172
       formula.class__path: 312
+      formula.wikipedia__url__button: 104
   - type: table
-    name: Dot.class
+    name: class__all
     order:
       - file.name
       - class
+      - formula.class__ancestors
       - formula.class__dir
       - formula.class__path
       - formula.class__8
@@ -56,12 +60,16 @@ views:
       - formula.class__2
       - formula.class__1
     sort:
+      - property: formula.class__ancestors
+        direction: ASC
       - property: formula.class__dir
         direction: ASC
     columnSize:
+      file.name: 309
       note.class: 99
-      formula.class__dir: 131
-      formula.class__path: 158
+      formula.class__ancestors: 285
+      formula.class__dir: 266
+      formula.class__path: 297
       formula.class__8: 96
   - type: table
     name: Dot Test
@@ -92,7 +100,7 @@ views:
     filters:
       and:
         - note.class.isEmpty() == false
-        - formula.class__ancestors.contains(this.file.name)
+        - formula.class__path.contains(this.file.name)
     order:
       - formula.class__path
       - file.name
@@ -106,7 +114,7 @@ views:
       - property: formula.class__path
         direction: ASC
     columnSize:
-      formula.class__path: 526
+      formula.class__path: 610
       file.name: 441
       note.name__fr: 411
       note.description: 702
@@ -163,16 +171,37 @@ views:
     name: Aliment
     filters:
       and:
-        - formula.class__ancestors.contains(this.file.name)
+        - formula.class__path.contains("Aliment")
         - "!class.isEmpty()"
     order:
       - formula.class__path
       - file.name
+      - name__fr
       - wikidata__cd
       - description
     sort:
       - property: formula.class__path
         direction: ASC
     columnSize:
-      formula.class__path: 528
+      formula.class__path: 509
       file.name: 197
+      note.name__fr: 193
+      note.description: 932
+  - type: table
+    name: Recipe
+  - type: table
+    name: class
+    filters:
+      and:
+        - "!class.isEmpty()"
+    order:
+      - formula.class__path
+      - class
+      - file.name
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 525
+      note.class: 185
+      file.name: 309

@@ -7,3 +7,10 @@ example: |-
   - Cat is a class of Animal
 class__order: a
 ---
+
+
+
+![[dots.base#class__all]]
+
+
+

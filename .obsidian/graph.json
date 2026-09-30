@@ -1,5 +1,5 @@
 {
-  "collapse-filter": false,
+  "collapse-filter": true,
   "search": "path:\"/dot/\"",
   "showTags": false,
   "showAttachments": false,
@@ -27,11 +27,11 @@
   "textFadeMultiplier": 0,
   "nodeSizeMultiplier": 1,
   "lineSizeMultiplier": 1,
-  "collapse-forces": true,
-  "centerStrength": 0,
+  "collapse-forces": false,
+  "centerStrength": 0.175212243074173,
   "repelStrength": 9.39286137792008,
   "linkStrength": 1,
   "linkDistance": 30,
-  "scale": 1.1546678658503249,
+  "scale": 0.7674384762658776,
   "close": false
 }

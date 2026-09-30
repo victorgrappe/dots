@@ -3,5 +3,6 @@
   "obsidian-git",
   "find-unlinked-files",
   "obsidian-excalidraw-plugin",
-  "dots"
+  "dots",
+  "obsidian-import-json"
 ]
