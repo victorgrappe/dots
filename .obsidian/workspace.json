@@ -18,7 +18,20 @@
             }
           },
           {
-            "id": "f10c4565e5078c9e",
+            "id": "edf21a78e89bcfb9",
+            "type": "leaf",
+            "state": {
+              "type": "bases",
+              "state": {
+                "file": "dots/base/dots.base",
+                "viewName": "Software"
+              },
+              "icon": "lucide-table",
+              "title": "dots"
+            }
+          },
+          {
+            "id": "f4d5e7ee7a6b6f2f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -29,75 +42,6 @@
               },
               "icon": "lucide-file",
               "title": "Aliment"
-            }
-          },
-          {
-            "id": "edf21a78e89bcfb9",
-            "type": "leaf",
-            "state": {
-              "type": "bases",
-              "state": {
-                "file": "dots/base/dots.base",
-                "viewName": "Dot"
-              },
-              "icon": "lucide-table",
-              "title": "dots"
-            }
-          },
-          {
-            "id": "c59e2e5367117c00",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "dots/dot/class.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "class"
-            }
-          },
-          {
-            "id": "dafcaffe5dc7b985",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "dots/dot/Indicator.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Indicator"
-            }
-          },
-          {
-            "id": "3f9872e7534f8639",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "dots/dot/Property.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Property"
-            }
-          },
-          {
-            "id": "c6808e8409aad103",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "dots/dot/Operation.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Operation"
             }
           },
           {
@@ -115,6 +59,48 @@
             }
           },
           {
+            "id": "268de4337c2ab926",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "dots/dot/in.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "in"
+            }
+          },
+          {
+            "id": "0644ccb3c221eb65",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "dots/dot/Relation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Relation"
+            }
+          },
+          {
+            "id": "30b6b04794be09bf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "dots/dot/Property.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Property"
+            }
+          },
+          {
             "id": "f651f47af6f36064",
             "type": "leaf",
             "state": {
@@ -127,9 +113,23 @@
               "icon": "lucide-file",
               "title": "Recipe"
             }
+          },
+          {
+            "id": "da3b84438da97071",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "dots/dot/Software.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Software"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -319,7 +319,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 555.48046875
+    "width": 440.83203125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -336,35 +336,35 @@
       "obsidian-import-json:JSON/CSV Importer": false
     }
   },
-  "active": "f10c4565e5078c9e",
+  "active": "da3b84438da97071",
   "lastOpenFiles": [
-    "dots/dot/Vegetable Soup.md",
+    "dots/dot/Excel.md",
+    "dots/dot/File Format.md",
+    "dots/dot/Software.md",
+    "dots/dot/Janus Graph.md",
+    "dots/dot/BORO (Business Objects Reference Ontology).md",
     "dots/dot/Aliment.md",
-    "dots/dot/Olive Oil.md",
-    "dots/dot/Cooking Oil.md",
-    "dots/dot/Leaf Vegetable.md",
-    "dots/dot/Soup.md",
-    "dots/dot/Food.md",
-    "dots/dot/Pocessed Food.md",
-    "dots/dot/Dairy Product.md",
-    "dots/dot/Yogurt.md",
-    "dots/dot/Onion.md",
-    "dots/dot/Leek.md",
-    "dots/dot/Bulb Vegetable.md",
-    "dots/dot/Potato.md",
-    "dots/dot/Turnip.md",
-    "dots/dot/Carrot.md",
-    "dots/dot/Root Vegetable.md",
-    "dots/dot/Cruciferous.md",
-    "dots/dot/Vegetable.md",
-    "dots/dot/Indicator.md",
-    "dots/dot/class.md",
+    "dots/dot/MySQL.md",
     "dots/base/dots.base",
-    "dots/dot/Operation.md",
+    "dots/dot/PostgreSQL.md",
+    "dots/dot/Application.md",
+    "dots/dot/Linkedin.md",
+    "dots/dot/Recipe.md",
     "dots/dot/Property.md",
+    "dots/dot/Relation.md",
+    "dots/dot/in.md",
     "dots/dot/Dots, Upper Ontology structure.md",
-    "dots/dot/Arity.md",
-    "dots/dot/ISO Standard.md",
+    "dots/dot/Type–Token Distinction.md",
+    "dots/dot/Software Library.md",
+    "dots/dot/Database.md",
+    "dots/dot/Untitled 18.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Black Pepper.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Table Salt.md",
+    "dots/dot/Black Pepper.md",
+    "dots/dot/Table Salt.md",
+    "dots/dot/Spice.md",
+    "dots/dot/Condiment.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Carrot.md",
     "data/in/food_sample.csv",
     "data/in/food_sample/food_sample.csv",
     "data/in/food_sample/Sheet 1-Table 1-1.csv",

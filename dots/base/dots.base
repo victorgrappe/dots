@@ -16,6 +16,9 @@ formulas:
   path: if(formula.class__dir, formula.class__dir + if(note.class, ".", "--") + file.name, file.name)
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
   wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " class=dots-wiki-button>Wikipedia ↗</a>"))
+  in__name: '[in.asFile().name,class.asFile().name,out.asFile().name].join("--")'
+  sandbox: |
+    [in.title().toString()].join("___")
 views:
   - type: table
     name: Dot
@@ -120,6 +123,36 @@ views:
       note.description: 702
       note.uri: 427
   - type: table
+    name: Aliment
+    filters:
+      and:
+        - formula.class__path.contains("Aliment")
+        - "!class.isEmpty()"
+    order:
+      - formula.class__path
+      - file.name
+      - name__fr
+      - wikidata__cd
+      - description
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 509
+      file.name: 295
+      note.name__fr: 211
+      note.description: 932
+  - type: table
+    name: Country
+    filters:
+      and:
+        - type == link("Country")
+    order:
+      - file.name
+      - country_a2
+      - country_a3
+      - country_n3
+  - type: table
     name: Financial Instrument
     filters:
       and:
@@ -142,15 +175,7 @@ views:
       formula.wikipedia__url__button: 104
       note.fibo__uri: 114
   - type: table
-    name: Country
-    filters:
-      and:
-        - type == link("Country")
-    order:
-      - file.name
-      - country_a2
-      - country_a3
-      - country_n3
+    name: Recipe
   - type: table
     name: Relation
     filters:
@@ -168,27 +193,26 @@ views:
       file.name: 171
     rowHeight: medium
   - type: table
-    name: Aliment
+    name: Software
     filters:
       and:
-        - formula.class__path.contains("Aliment")
-        - "!class.isEmpty()"
+        - formula.class__path.contains("Software")
     order:
       - formula.class__path
+      - class
+      - type
       - file.name
-      - name__fr
-      - wikidata__cd
       - description
+      - wikidata__cd
+      - uri
     sort:
       - property: formula.class__path
         direction: ASC
     columnSize:
-      formula.class__path: 509
-      file.name: 197
-      note.name__fr: 193
-      note.description: 932
-  - type: table
-    name: Recipe
+      formula.class__path: 293
+      note.class: 178
+      file.name: 189
+      note.description: 657
   - type: table
     name: class
     filters:
@@ -205,3 +229,26 @@ views:
       formula.class__path: 525
       note.class: 185
       file.name: 309
+  - type: table
+    name: in.class_
+    filters:
+      and:
+        - class == link("in")
+    order:
+      - file.name
+      - in
+      - class
+      - out
+      - formula.in__name
+    sort:
+      - property: formula.in__name
+        direction: DESC
+      - property: out
+        direction: ASC
+      - property: in
+        direction: ASC
+    columnSize:
+      file.name: 295
+      note.in: 216
+      note.class: 107
+      note.out: 152

@@ -58,6 +58,19 @@ This is the actual model that we will use to represent the situation
 
 
 
+
+
+# Problems, Paradoxes
+
+[[Type–Token Distinction]]
+
+
+https://plato.stanford.edu/entries/material-constitution/
+- The Debtor's Paradox
+- The Puzzle of Dion and Theon
+- The Ship of Theseus Puzzle
+- The Puzzle of the Statue and the Clay
+
 # References
 
 
@@ -192,8 +205,3 @@ https://en.wikipedia.org/wiki/Primitive_notion
 https://fr.slideshare.net/slideshow/onto-clean-methodology/7187577#2
 
 
-
-https://plato.stanford.edu/entries/material-constitution/
-
-
-Statue and Lump" paradox

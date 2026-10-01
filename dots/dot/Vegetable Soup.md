@@ -7,11 +7,3 @@ description: Soup with vegetables
 
 
 
-
-# Ingredients
-- [[Leek]]
-- [[Carrot]]
-- [[Turnip]]
-- [[Potato]]
-- [[Onion]]
-- [[Olive Oil]]
