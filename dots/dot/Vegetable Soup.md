@@ -6,4 +6,6 @@ description: Soup with vegetables
 ---
 
 
+![[dots.base#in.class_]]
+
 

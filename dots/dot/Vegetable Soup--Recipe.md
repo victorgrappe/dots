@@ -5,6 +5,10 @@ wikidata__cd:
 description:
 ---
 
+![[dots.base#in.class_]]
+
+
+
 # Ingredients
 
 | [[Food]]      | Quantity |
