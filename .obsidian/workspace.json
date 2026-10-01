@@ -111,14 +111,14 @@
             "id": "790e43d6f74239f8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "dots/dot/Vegetable Soup--Recipe.md",
-                "mode": "source",
-                "source": false
+                "aFile": "dots/dot/Untitled 19.md",
+                "bFile": "dots/dot/Untitled 19.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Vegetable Soup--Recipe"
+              "icon": "diff",
+              "title": "Diff: Untitled 19  (Working Tree)"
             }
           }
         ]
@@ -328,9 +328,14 @@
       "obsidian-import-json:JSON/CSV Importer": false
     }
   },
-  "active": "4bb1aae15c0cfab3",
+  "active": "790e43d6f74239f8",
   "lastOpenFiles": [
+    "dots/dot/Vegetable Soup--Recipe.md",
+    "dots/dot/sdfqsdf.md",
     "dots/base/dots.base",
+    "dots/dot/Untitled 21.md",
+    "dots/dot/Untitled 20.md",
+    "dots/dot/Untitled 19.md",
     "dots/dot/Relation.md",
     "dots/dot/in.md",
     "dots/dot/Vegetable Soup.md",
@@ -352,10 +357,6 @@
     "dots/dot/Database.md",
     "dots/dot/Untitled 18.md",
     "dots/dot/Vegetable Soup--Recipe--in--Black Pepper.md",
-    "dots/dot/Vegetable Soup--Recipe--in--Table Salt.md",
-    "dots/dot/Black Pepper.md",
-    "dots/dot/Table Salt.md",
-    "dots/dot/Spice.md",
     "data/in/food_sample.csv",
     "data/in/food_sample/food_sample.csv",
     "data/in/food_sample/Sheet 1-Table 1-1.csv",

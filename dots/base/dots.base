@@ -234,6 +234,9 @@ views:
     filters:
       and:
         - class == link("in")
+        - or:
+            - this.file.ext == "base"
+            - in.asFile().path == this.file.path
     order:
       - file.name
       - in
@@ -248,7 +251,7 @@ views:
       - property: in
         direction: ASC
     columnSize:
-      file.name: 295
-      note.in: 216
+      file.name: 307
+      note.in: 270
       note.class: 107
       note.out: 152
