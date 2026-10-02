@@ -1,3 +1,5 @@
+summaries:
+  Sum: values.sum().round(2)
 filters:
   and:
     - file.folder.endsWith("dot")
@@ -17,6 +19,13 @@ formulas:
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
   wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " class=dots-wiki-button>Wikipedia ↗</a>"))
   in__name: '[in.asFile().name,class.asFile().name,out.asFile().name].join("--")'
+  out__energy: if(out.asFile().properties.mass, (note.mass * out.asFile().properties.energy / out.asFile().properties.mass).round(10))
+  out__energy__kj: if(formula.out__energy, (formula.out__energy / 1000).round(10))
+  in__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.mass * value.properties.out.asFile().properties.energy / value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  in__out__energy__kj: if(formula.in__out__energy, (formula.in__out__energy / 1000).round(10))
+  out__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.mass * value.properties.out.asFile().properties.energy / value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  out__out__energy__kj: if(formula.out__out__energy, (formula.out__out__energy / 1000).round(10))
+  io__out__energy: (formula.in__out__energy - formula.out__out__energy).round(10)
   sandbox: |
     [in.title().toString()].join("___")
 views:
@@ -126,22 +135,33 @@ views:
     name: Aliment
     filters:
       and:
-        - formula.class__path.contains("Aliment")
         - "!class.isEmpty()"
+        - or:
+            - formula.class__path.contains("Beverage")
+            - formula.class__path.contains("Food")
+            - formula.class__path.contains("Dish")
     order:
       - formula.class__path
       - file.name
       - name__fr
       - wikidata__cd
       - description
+      - mass
+      - energy
+      - number
     sort:
+      - property: number
+        direction: ASC
       - property: formula.class__path
         direction: ASC
     columnSize:
       formula.class__path: 509
       file.name: 295
       note.name__fr: 211
-      note.description: 932
+      note.description: 354
+      note.mass: 92
+      note.energy: 109
+      note.number: 109
   - type: table
     name: Country
     filters:
@@ -176,6 +196,25 @@ views:
       note.fibo__uri: 114
   - type: table
     name: Recipe
+    filters:
+      and:
+        - formula.class__path.contains(".Recipe.")
+    order:
+      - file.name
+      - formula.in__out__energy
+      - formula.out__out__energy
+      - formula.io__out__energy
+      - formula.in__out__energy__kj
+      - formula.out__out__energy__kj
+    sort:
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 240
+      formula.in__out__energy: 159
+      formula.in__out__energy__kj: 175
+      formula.out__out__energy: 156
+      formula.out__out__energy__kj: 194
   - type: table
     name: Relation
     filters:
@@ -236,22 +275,64 @@ views:
         - class == link("in")
         - or:
             - this.file.ext == "base"
-            - in.asFile().path == this.file.path
+            - in == this.file
     order:
-      - file.name
-      - in
-      - class
       - out
-      - formula.in__name
+      - order
+      - number
+      - mass
+      - multiplier
+      - formula.out__energy
+      - formula.out__energy__kj
+      - description
+      - file.name
     sort:
+      - property: order
+        direction: ASC
+      - property: formula.in__name
+        direction: DESC
+      - property: in
+        direction: ASC
+    summaries:
+      mass: Sum
+      formula.out__energy: Sum
+      formula.out__energy__kj: Sum
+    columnSize:
+      note.out: 180
+      note.mass: 88
+      formula.out__energy: 136
+      formula.out__energy__kj: 153
+      note.description: 430
+      file.name: 307
+  - type: table
+    name: out.class_
+    filters:
+      and:
+        - class == link("out")
+        - or:
+            - this.file.ext == "base"
+            - in == this.file
+    order:
+      - out
+      - order
+      - number
+      - mass
+      - multiplier
+      - formula.out__energy__kj
+      - formula.out__energy
+      - description
+      - file.name
+    sort:
+      - property: order
+        direction: ASC
       - property: formula.in__name
         direction: DESC
       - property: out
         direction: ASC
-      - property: in
-        direction: ASC
     columnSize:
+      note.out: 179
+      note.mass: 88
+      formula.out__energy__kj: 143
+      formula.out__energy: 153
+      note.description: 424
       file.name: 307
-      note.in: 270
-      note.class: 107
-      note.out: 152

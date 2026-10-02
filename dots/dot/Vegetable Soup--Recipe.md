@@ -5,8 +5,17 @@ wikidata__cd:
 description:
 ---
 
+
+
+![[dots.base#Recipe]]
+
+
+# In
+
 ![[dots.base#in.class_]]
 
+# Out
+![[dots.base#out.class_]]
 
 
 # Ingredients

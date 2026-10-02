@@ -9,5 +9,6 @@ name__fr: Aliment
 
 
 
+![[dots.base#Recipe]]
 
-	
+

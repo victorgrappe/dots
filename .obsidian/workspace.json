@@ -24,7 +24,7 @@
               "type": "bases",
               "state": {
                 "file": "dots/base/dots.base",
-                "viewName": "in.class_"
+                "viewName": "Recipe"
               },
               "icon": "lucide-table",
               "title": "dots"
@@ -101,24 +101,24 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
-        "id": "6307ecd4e19ce124",
+        "id": "d4ab3e27853a77fd",
         "type": "tabs",
         "children": [
           {
-            "id": "790e43d6f74239f8",
+            "id": "b38596e55737f05c",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
               "state": {
-                "aFile": "dots/dot/Untitled 19.md",
-                "bFile": "dots/dot/Untitled 19.md",
+                "aFile": "dots/dot/Vegetable Soup--Recipe--in--Drinking Water.md",
+                "bFile": "dots/dot/Vegetable Soup--Recipe--in--Drinking Water.md",
                 "aRef": ""
               },
               "icon": "diff",
-              "title": "Diff: Untitled 19  (Working Tree)"
+              "title": "Diff: Vegetable Soup--Recipe--in--Drinking Water  (Working Tree)"
             }
           }
         ]
@@ -179,11 +179,13 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 254.3046875
+    "width": 254.3046875,
+    "collapsed": true
   },
   "right": {
     "id": "8a85373e2b6f490f",
@@ -311,7 +313,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 440.83203125
+    "width": 394.19921875
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -328,18 +330,28 @@
       "obsidian-import-json:JSON/CSV Importer": false
     }
   },
-  "active": "790e43d6f74239f8",
+  "active": "b38596e55737f05c",
   "lastOpenFiles": [
     "dots/dot/Vegetable Soup--Recipe.md",
-    "dots/dot/sdfqsdf.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Olive Oil.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Drinking Water.md",
+    "dots/dot/Aliment.md",
+    "dots/dot/Drinking Water.md",
+    "dots/dot/Vegetable Soup--Recipe--out--qsdqsdqsd.md",
+    "dots/dot/Vegetable Soup.md",
+    "dots/dot/Leek.md",
+    "dots/dot/Olive Oil.md",
     "dots/base/dots.base",
-    "dots/dot/Untitled 21.md",
-    "dots/dot/Untitled 20.md",
+    "dots/dot/Carrot.md",
+    "dots/dot/Turnip.md",
+    "dots/dot/Potato.md",
+    "dots/dot/Onion.md",
+    "dots/dot/Vegetable Soup--Recipe--out--Vegetable Soup.md",
     "dots/dot/Untitled 19.md",
+    "dots/dot/Vegetable Soup--Recipe--in--Turnip.md",
+    "dots/dot/sdfqsdf.md",
     "dots/dot/Relation.md",
     "dots/dot/in.md",
-    "dots/dot/Vegetable Soup.md",
-    "dots/dot/Aliment.md",
     "dots/dot/Property.md",
     "dots/dot/Software.md",
     "dots/dot/Excel.md",
@@ -347,16 +359,6 @@
     "dots/dot/Janus Graph.md",
     "dots/dot/BORO (Business Objects Reference Ontology).md",
     "dots/dot/MySQL.md",
-    "dots/dot/PostgreSQL.md",
-    "dots/dot/Application.md",
-    "dots/dot/Linkedin.md",
-    "dots/dot/Recipe.md",
-    "dots/dot/Dots, Upper Ontology structure.md",
-    "dots/dot/Type–Token Distinction.md",
-    "dots/dot/Software Library.md",
-    "dots/dot/Database.md",
-    "dots/dot/Untitled 18.md",
-    "dots/dot/Vegetable Soup--Recipe--in--Black Pepper.md",
     "data/in/food_sample.csv",
     "data/in/food_sample/food_sample.csv",
     "data/in/food_sample/Sheet 1-Table 1-1.csv",

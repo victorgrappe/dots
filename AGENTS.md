@@ -91,6 +91,9 @@ sync apply      <- actually writes
     (`scripts/wikidataGraphUrl.js`). Adding a service means one `scripts/` file and
     one `WIKI_LINKS` entry. Styling lives in `styles.css`, whose `.dots-wiki-button`
     class the `wikipedia__url__button` formula in `dots.base` reuses.
+    It also names **link dots**: any dot with `class: "[[in]]"` or `"[[out]]"` plus `in` and
+    `out` in its frontmatter is renamed to `{in}--{class}--{out}` (e.g.
+    `Vegetable Soup--Recipe--in--Olive Oil`) whenever those change.
 - `assets/` — vault assets. *Currently empty.*
 
 ## Notes for agents
