@@ -6,14 +6,12 @@ description:
 ---
 
 
-
+# IO
 ![[dots.base#Recipe]]
-
-
+![[dots.base#io__energy]]
+![[dots.base#io__number]]
 # In
-
 ![[dots.base#in.class_]]
-
 # Out
 ![[dots.base#out.class_]]
 

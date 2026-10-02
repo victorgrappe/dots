@@ -19,13 +19,23 @@ formulas:
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
   wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " class=dots-wiki-button>Wikipedia ↗</a>"))
   in__name: '[in.asFile().name,class.asFile().name,out.asFile().name].join("--")'
-  out__energy: if(out.asFile().properties.mass, (note.mass * out.asFile().properties.energy / out.asFile().properties.mass).round(10))
+  out__energy: if(note.multiplier && out.asFile().properties.energy, (note.multiplier * out.asFile().properties.energy).round(10))
   out__energy__kj: if(formula.out__energy, (formula.out__energy / 1000).round(10))
-  in__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.mass * value.properties.out.asFile().properties.energy / value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  in__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.energy).filter(value).sum().round(10)
   in__out__energy__kj: if(formula.in__out__energy, (formula.in__out__energy / 1000).round(10))
-  out__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.mass * value.properties.out.asFile().properties.energy / value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  out__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.energy).filter(value).sum().round(10)
   out__out__energy__kj: if(formula.out__out__energy, (formula.out__out__energy / 1000).round(10))
   io__out__energy: (formula.in__out__energy - formula.out__out__energy).round(10)
+  out__mass: if(note.multiplier && out.asFile().properties.mass, (note.multiplier * out.asFile().properties.mass).round(10))
+  in__out__mass: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  out__out__mass: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  io__out__mass: (formula.in__out__mass - formula.out__out__mass).round(10)
+  out__number: if(note.multiplier && out.asFile().properties.number, (note.multiplier * out.asFile().properties.number).round(10))
+  in__out__number: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.number).filter(value).sum().round(10)
+  out__out__number: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.number).filter(value).sum().round(10)
+  io__out__number: (formula.in__out__number - formula.out__out__number).round(10)
+  energy_by_mass: if(note.mass, (note.energy / note.mass).round(10))
+  energy_by_mass_kj: if(formula.energy_by_mass, (formula.energy_by_mass / 1000).round(10))
   sandbox: |
     [in.title().toString()].join("___")
 views:
@@ -147,11 +157,10 @@ views:
       - wikidata__cd
       - description
       - mass
-      - energy
       - number
+      - energy
+      - formula.energy_by_mass_kj
     sort:
-      - property: number
-        direction: ASC
       - property: formula.class__path
         direction: ASC
     columnSize:
@@ -160,8 +169,9 @@ views:
       note.name__fr: 211
       note.description: 354
       note.mass: 92
-      note.energy: 109
       note.number: 109
+      note.energy: 140
+      formula.energy_by_mass_kj: 167
   - type: table
     name: Country
     filters:
@@ -194,27 +204,6 @@ views:
       note.description: 932
       formula.wikipedia__url__button: 104
       note.fibo__uri: 114
-  - type: table
-    name: Recipe
-    filters:
-      and:
-        - formula.class__path.contains(".Recipe.")
-    order:
-      - file.name
-      - formula.in__out__energy
-      - formula.out__out__energy
-      - formula.io__out__energy
-      - formula.in__out__energy__kj
-      - formula.out__out__energy__kj
-    sort:
-      - property: file.name
-        direction: ASC
-    columnSize:
-      file.name: 240
-      formula.in__out__energy: 159
-      formula.in__out__energy__kj: 175
-      formula.out__out__energy: 156
-      formula.out__out__energy__kj: 194
   - type: table
     name: Relation
     filters:
@@ -279,10 +268,9 @@ views:
     order:
       - out
       - order
-      - number
-      - mass
       - multiplier
-      - formula.out__energy
+      - formula.out__mass
+      - formula.out__number
       - formula.out__energy__kj
       - description
       - file.name
@@ -297,11 +285,10 @@ views:
       mass: Sum
       formula.out__energy: Sum
       formula.out__energy__kj: Sum
+      formula.out__mass: Sum
+      formula.out__number: Sum
     columnSize:
       note.out: 180
-      note.mass: 88
-      formula.out__energy: 136
-      formula.out__energy__kj: 153
       note.description: 430
       file.name: 307
   - type: table
@@ -315,11 +302,10 @@ views:
     order:
       - out
       - order
-      - number
-      - mass
       - multiplier
+      - formula.out__mass
+      - formula.out__number
       - formula.out__energy__kj
-      - formula.out__energy
       - description
       - file.name
     sort:
@@ -331,8 +317,70 @@ views:
         direction: ASC
     columnSize:
       note.out: 179
-      note.mass: 88
-      formula.out__energy__kj: 143
-      formula.out__energy: 153
       note.description: 424
       file.name: 307
+  - type: table
+    name: io__mass
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__mass
+      - formula.in__out__mass
+      - formula.out__out__mass
+    sort:
+      - property: formula.out__out__mass
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 308
+      formula.io__out__mass: 179
+      formula.in__out__mass: 172
+      formula.out__out__mass: 179
+  - type: table
+    name: io__energy
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__energy
+      - formula.in__out__energy
+      - formula.out__out__energy
+      - formula.out__out__energy__kj
+      - formula.in__out__energy__kj
+    sort:
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 311
+      formula.io__out__energy: 177
+      formula.in__out__energy: 173
+      formula.out__out__energy: 175
+      formula.out__out__energy__kj: 185
+      formula.in__out__energy__kj: 168
+  - type: table
+    name: io__number
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__number
+      - formula.in__out__number
+      - formula.out__out__number
+    sort:
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 311
+      formula.io__out__number: 178
+      formula.in__out__number: 173

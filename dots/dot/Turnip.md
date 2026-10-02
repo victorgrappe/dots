@@ -5,4 +5,5 @@ description:
 name__fr: Navet
 mass: 1
 energy: 920000
+number: 8.1
 ---
