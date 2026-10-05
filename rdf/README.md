@@ -11,6 +11,8 @@ rdf/
 │   ├── docker-compose.yml   # one service, port 3030 on localhost
 │   ├── config.ttl           # the "dots" dataset: in memory, loaded from turtle/
 │   └── shiro.ini            # access control: open, for local use
+├── map/
+│   └── index.html           # full-window map of a query's geometries
 ├── sparql/                  # saved queries (.rq)
 └── turtle/
     └── dots.ttl             # the graph
@@ -132,6 +134,9 @@ For JSON instead of CSV, change the header to Accept: application/sparql-results
 | `class-hierarchy.rq` | every class, its parent (`class:`) and its depth below Dot |
 | `instances.rq` | every `type:` instance, its type and its top-level class |
 | `link-dots.rq` | link dots: `in` → `out`, with `order` and `multiplier` |
+| `insert-countries.ru` | *update*: adds France, Spain and Germany with simplified boundaries |
+| `countries-geo.rq` | GeoSPARQL: each pair of countries, whether they touch, and their distance |
+| `countries-map.rq` | the country polygons, for the 🌍 **Geo** map tab of the web UI |
 
 Run one from `rdf/` while the server is up. `query@file` makes curl read the
 query from the file:
@@ -140,7 +145,16 @@ query from the file:
 curl -s http://localhost:3030/dots/sparql -H 'Accept: text/csv' --data-urlencode 'query@sparql/class-hierarchy.rq'
 ```
 
-To run all of them:
+`.ru` files are updates: send them to `/dots/update` as `update@file`. The
+dataset is in memory, so run the insert again after every restart. GeoSPARQL
+functions (`geof:`) are built into Fuseki and need no extra setup.
+
+```bash
+curl -s http://localhost:3030/dots/update --data-urlencode 'update@sparql/insert-countries.ru'
+curl -s http://localhost:3030/dots/sparql -H 'Accept: text/plain' --data-urlencode 'query@sparql/countries-geo.rq'
+```
+
+To run all the queries:
 
 ```bash
 for q in sparql/*.rq; do echo "== $q"; curl -s http://localhost:3030/dots/sparql -H 'Accept: text/csv' --data-urlencode "query@$q"; done
@@ -149,6 +163,27 @@ for q in sparql/*.rq; do echo "== $q"; curl -s http://localhost:3030/dots/sparql
 For other formats, change the `Accept` header to `text/tab-separated-values` or
 `application/sparql-results+json`. You can also paste a file into the query editor
 of the web UI.
+
+## Map
+
+`map/index.html` draws the geometries of a SPARQL query on a full-window map.
+Open it straight from disk while the server is up. Fuseki allows cross-origin
+requests, so no web server is needed:
+
+```bash
+open map/index.html
+```
+
+It runs `countries-map.rq` on load. Edit the query in the panel and press
+**Run** or ⌘+Enter. **Reset** restores the default query. Press **F** or ⛶ for
+fullscreen, and use the layer button to switch background maps.
+
+It follows the same conventions as the web UI's 🌍 **Geo** tab:
+
+- every column holding a `geo:wktLiteral` (or `geo:geoJSONLiteral`) is drawn;
+- a column named `wktColor` sets the colour;
+- a column named `wktLabel` sets the label (otherwise the first plain-text column);
+- clicking a shape shows its whole row.
 
 ## Upgrading Fuseki
 
