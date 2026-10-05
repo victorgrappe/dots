@@ -1,0 +1,7 @@
+name,class__tmp,name__fr,uri,note,shelf,recipes
+"Wine, red",Alcohol.Wine,"Vin, red",_,,Beverages,"Lasagna,Beef bourguignon"
+"Wine, white",Alcohol.Wine,"Vin, blanc",_,,Beverages,Risotto
+"Chicken, breast",Animal.Fowl.Chicken,"Poulet, blanc",_,,Meats and fish,Salad Bar
+"Chicken, whole",Animal.Fowl.Chicken,"Poulet, entier",_,,Meats and fish,"Chicken, roast"
+Egg,Animal.Fowl.Chicken,Oeuf,_,,Creamery and dairy products,"Basics - Food,Gougères"
+"Egg, hard",Animal.Fowl.Chicken,"Oeuf, dur",_,,Creamery and dairy products,Salad Bar

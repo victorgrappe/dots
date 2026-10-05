@@ -1,3 +1,5 @@
+summaries:
+  Sum: values.sum().round(2)
 filters:
   and:
     - file.folder.endsWith("dot")
@@ -16,6 +18,26 @@ formulas:
   path: if(formula.class__dir, formula.class__dir + if(note.class, ".", "--") + file.name, file.name)
   wikipedia__url: if(note.wikidata__cd, link(wikipediaUrl(note.wikidata__cd), "Wiki EN"))
   wikipedia__url__button: if(formula.wikipedia__url, html("<a href=" + formula.wikipedia__url.toString() + " class=dots-wiki-button>Wikipedia ↗</a>"))
+  in__name: '[in.asFile().name,class.asFile().name,out.asFile().name].join("--")'
+  out__energy: if(note.multiplier && out.asFile().properties.energy, (note.multiplier * out.asFile().properties.energy).round(10))
+  out__energy__kj: if(formula.out__energy, (formula.out__energy / 1000).round(10))
+  in__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.energy).filter(value).sum().round(10)
+  in__out__energy__kj: if(formula.in__out__energy, (formula.in__out__energy / 1000).round(10))
+  out__out__energy: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.energy).filter(value).sum().round(10)
+  out__out__energy__kj: if(formula.out__out__energy, (formula.out__out__energy / 1000).round(10))
+  io__out__energy: (formula.in__out__energy - formula.out__out__energy).round(10)
+  out__mass: if(note.multiplier && out.asFile().properties.mass, (note.multiplier * out.asFile().properties.mass).round(10))
+  in__out__mass: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  out__out__mass: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.mass).filter(value).sum().round(10)
+  io__out__mass: (formula.in__out__mass - formula.out__out__mass).round(10)
+  out__number: if(note.multiplier && out.asFile().properties.number, (note.multiplier * out.asFile().properties.number).round(10))
+  in__out__number: file.backlinks.map(value.asFile()).filter(value.properties.class == link("in") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.number).filter(value).sum().round(10)
+  out__out__number: file.backlinks.map(value.asFile()).filter(value.properties.class == link("out") && value.properties.in == file).map(value.properties.multiplier * value.properties.out.asFile().properties.number).filter(value).sum().round(10)
+  io__out__number: (formula.in__out__number - formula.out__out__number).round(10)
+  energy_by_mass: if(note.mass, (note.energy / note.mass).round(10))
+  energy_by_mass_kj: if(formula.energy_by_mass, (formula.energy_by_mass / 1000).round(10))
+  sandbox: |
+    [in.title().toString()].join("___")
 views:
   - type: table
     name: Dot
@@ -32,19 +54,23 @@ views:
       - uri
       - file.mtime
     sort:
+      - property: file.name
+        direction: ASC
       - property: file.mtime
         direction: DESC
       - property: class
         direction: DESC
     columnSize:
-      file.name: 280
-      note.class: 98
+      file.name: 355
+      note.class: 172
       formula.class__path: 312
+      formula.wikipedia__url__button: 104
   - type: table
-    name: Dot.class
+    name: class__all
     order:
       - file.name
       - class
+      - formula.class__ancestors
       - formula.class__dir
       - formula.class__path
       - formula.class__8
@@ -56,12 +82,16 @@ views:
       - formula.class__2
       - formula.class__1
     sort:
+      - property: formula.class__ancestors
+        direction: ASC
       - property: formula.class__dir
         direction: ASC
     columnSize:
+      file.name: 309
       note.class: 99
-      formula.class__dir: 131
-      formula.class__path: 158
+      formula.class__ancestors: 285
+      formula.class__dir: 266
+      formula.class__path: 297
       formula.class__8: 96
   - type: table
     name: Dot Test
@@ -92,24 +122,288 @@ views:
     filters:
       and:
         - note.class.isEmpty() == false
-        - formula.class__ancestors.contains(this.file.name)
+        - formula.class__path.contains(this.file.name)
     order:
-      - class
+      - formula.class__path
       - file.name
       - name__fr
       - description
-      - formula.class__path
+      - uri
+      - wikidata__cd
+      - formula.wikipedia__url
       - file.mtime
     sort:
-      - property: class
-        direction: ASC
-      - property: file.name
-        direction: ASC
       - property: formula.class__path
         direction: ASC
     columnSize:
-      note.class: 195
-      file.name: 193
-      note.name__fr: 273
-      note.description: 969
-      formula.class__path: 265
+      formula.class__path: 610
+      file.name: 441
+      note.name__fr: 411
+      note.description: 702
+      note.uri: 427
+  - type: table
+    name: Aliment
+    filters:
+      and:
+        - "!class.isEmpty()"
+        - or:
+            - formula.class__path.contains("Beverage")
+            - formula.class__path.contains("Food")
+            - formula.class__path.contains("Dish")
+    order:
+      - formula.class__path
+      - file.name
+      - name__fr
+      - wikidata__cd
+      - description
+      - mass
+      - number
+      - energy
+      - formula.energy_by_mass_kj
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 509
+      file.name: 295
+      note.name__fr: 211
+      note.description: 354
+      note.mass: 92
+      note.number: 109
+      note.energy: 140
+      formula.energy_by_mass_kj: 167
+  - type: table
+    name: Country
+    filters:
+      and:
+        - type == link("Country")
+    order:
+      - file.name
+      - country_a2
+      - country_a3
+      - country_n3
+  - type: table
+    name: Financial Instrument
+    filters:
+      and:
+        - formula.class__ancestors.contains("Financial Instrument")
+    order:
+      - formula.class__path
+      - file.name
+      - name__fr
+      - description
+      - formula.wikipedia__url__button
+      - fibo__uri
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 483
+      file.name: 168
+      note.name__fr: 192
+      note.description: 932
+      formula.wikipedia__url__button: 104
+      note.fibo__uri: 114
+  - type: table
+    name: Relation
+    filters:
+      and:
+        - class == link("Relation")
+    order:
+      - file.name
+      - class__order
+      - description
+      - example
+    sort:
+      - property: class__order
+        direction: ASC
+    columnSize:
+      file.name: 171
+    rowHeight: medium
+  - type: table
+    name: Software
+    filters:
+      and:
+        - formula.class__path.contains("Software")
+    order:
+      - formula.class__path
+      - class
+      - type
+      - file.name
+      - description
+      - wikidata__cd
+      - uri
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 293
+      note.class: 178
+      file.name: 189
+      note.description: 657
+  - type: table
+    name: class
+    filters:
+      and:
+        - "!class.isEmpty()"
+    order:
+      - formula.class__path
+      - class
+      - file.name
+    sort:
+      - property: formula.class__path
+        direction: ASC
+    columnSize:
+      formula.class__path: 525
+      note.class: 185
+      file.name: 309
+  - type: table
+    name: in.class_
+    filters:
+      and:
+        - class == link("in")
+        - or:
+            - this.file.ext == "base"
+            - in == this.file
+    order:
+      - out
+      - order
+      - multiplier
+      - formula.out__mass
+      - formula.out__number
+      - formula.out__energy__kj
+      - description
+      - file.name
+    sort:
+      - property: order
+        direction: ASC
+      - property: formula.in__name
+        direction: DESC
+      - property: in
+        direction: ASC
+    summaries:
+      mass: Sum
+      formula.out__energy: Sum
+      formula.out__energy__kj: Sum
+      formula.out__mass: Sum
+      formula.out__number: Sum
+    columnSize:
+      note.out: 265
+      note.description: 430
+      file.name: 307
+  - type: table
+    name: out.class_
+    filters:
+      and:
+        - class == link("out")
+        - or:
+            - this.file.ext == "base"
+            - in == this.file
+    order:
+      - out
+      - order
+      - multiplier
+      - formula.out__mass
+      - formula.out__number
+      - formula.out__energy__kj
+      - description
+      - file.name
+    sort:
+      - property: order
+        direction: ASC
+      - property: formula.in__name
+        direction: DESC
+      - property: out
+        direction: ASC
+    columnSize:
+      note.out: 179
+      note.description: 424
+      file.name: 307
+  - type: table
+    name: io__mass
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__mass
+      - formula.in__out__mass
+      - formula.out__out__mass
+    sort:
+      - property: formula.out__out__mass
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 308
+      formula.io__out__mass: 179
+      formula.in__out__mass: 172
+      formula.out__out__mass: 179
+  - type: table
+    name: io__energy
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__energy
+      - formula.in__out__energy
+      - formula.out__out__energy
+      - formula.out__out__energy__kj
+      - formula.in__out__energy__kj
+    sort:
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 311
+      formula.io__out__energy: 177
+      formula.in__out__energy: 173
+      formula.out__out__energy: 175
+      formula.out__out__energy__kj: 185
+      formula.in__out__energy__kj: 168
+  - type: table
+    name: io__number
+    filters:
+      and:
+        - or:
+            - this.file.ext == "base"
+            - file.path == this.file.path
+    order:
+      - file.name
+      - formula.io__out__number
+      - formula.in__out__number
+      - formula.out__out__number
+    sort:
+      - property: file.name
+        direction: ASC
+    columnSize:
+      file.name: 311
+      formula.io__out__number: 178
+      formula.in__out__number: 173
+  - type: table
+    name: Recipe
+    filters:
+      and:
+        - formula.class__path.contains(".Recipe.")
+    order:
+      - formula.class__path
+      - file.name
+    columnSize:
+      formula.class__path: 456
+  - type: table
+    name: Chemical Element.type_
+    filters:
+      and:
+        - type == link("Chemical Element")
+    order:
+      - file.name
+      - proton__nb
+    sort:
+      - property: proton__nb
+        direction: ASC
+    columnSize:
+      file.name: 185

@@ -11,10 +11,14 @@
             "id": "d210d7d171cb9892",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "dots/dot/Beef bourguignon.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Beef bourguignon"
             }
           }
         ]
@@ -151,9 +155,19 @@
           "icon": "lucide-list",
           "title": "Outline"
         }
+      },
+      {
+        "id": "84b4f893721785a2",
+        "type": "leaf",
+        "state": {
+          "type": "advanced-tables-toolbar",
+          "state": {},
+          "icon": "spreadsheet",
+          "title": "Advanced Tables"
+        }
       }
     ],
-    "currentTab": 0
+    "currentTab": 3
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -171,6 +185,7 @@
   },
   "active": "d210d7d171cb9892",
   "lastOpenFiles": [
+    "dots/dot/Vegetable Soup.md",
     "dots/dot/Asset.md",
     "dots/dot/chirality.md",
     "dots/dot/IASB (International Accounting Standards Board).md",

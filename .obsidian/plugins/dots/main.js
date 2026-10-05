@@ -23,6 +23,11 @@ const WIKI_LINKS = [
   { fn: 'wikidataGraphUrl', label: 'Wikidata Graph', icon: 'git-fork', title: 'Open Wikidata graph' },
 ];
 
+// Joins in / class / out into a link dot's file name. Matches `in__name` in dots.base.
+const LINK_DOT_SEPARATOR = '--';
+// Only dots of these classes are renamed: class: "[[in]]" or "[[out]]".
+const LINK_DOT_CLASSES = new Set(['in', 'out']);
+
 // Bases keys its function registry by lowercased name, so registering one of
 // these would silently shadow the built-in and break every formula using it.
 const BASES_BUILTINS = new Set(
@@ -107,6 +112,9 @@ module.exports = class Dots extends Plugin {
     this.registerEvent(this.app.metadataCache.on('changed', refresh));
     // Reading mode rebuilds its sizer on every re-render, dropping our node with it.
     this.registerMarkdownPostProcessor(refresh);
+
+    // A link dot names itself after what it links: <in>--<class>--<out>.
+    this.registerEvent(this.app.metadataCache.on('changed', (file) => this.renameLinkDot(file)));
 
 
 
@@ -198,6 +206,39 @@ module.exports = class Dots extends Plugin {
         view.addAction(link.icon, link.title, () => window.open(link.url, '_blank'))
       );
     }
+  }
+
+  // A dot with `class: [[in]]` or `[[out]]` plus `in` and `out` is a link dot, and its
+  // file name is derived from them — e.g. "Vegetable Soup--Recipe--in--Olive Oil".
+  // Runs on every metadata change, so it renames as soon as the last of the three
+  // is filled in, and again if one of them is edited later.
+  async renameLinkDot(file) {
+    const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+    if (!fm || !fm.in || !fm.class || !fm.out) return;
+
+    const parts = [fm.in, fm.class, fm.out].map((v) => this.linkName(v, file.path));
+    if (parts.some((p) => !p) || !LINK_DOT_CLASSES.has(parts[1])) return;
+    const name = parts.join(LINK_DOT_SEPARATOR);
+    if (name === file.basename) return;
+
+    const path = `${file.parent?.path ? file.parent.path + '/' : ''}${name}.${file.extension}`;
+    if (this.app.vault.getAbstractFileByPath(path)) {
+      new Notice(`Dots: cannot rename "${file.basename}" — "${name}" already exists`);
+      return;
+    }
+    // fileManager (not vault) so every wikilink pointing at the old name follows.
+    await this.app.fileManager.renameFile(file, path);
+  }
+
+  // "[[Olive Oil]]" / "[[Olive Oil|alias]]" -> "Olive Oil", via the file it resolves
+  // to when there is one. A list only counts when it holds exactly one link.
+  linkName(value, sourcePath) {
+    if (Array.isArray(value)) value = value.length === 1 ? value[0] : null;
+    if (typeof value !== 'string') return null;
+    const inner = value.replace(/^\[\[|\]\]$/g, '').split('|')[0].trim();
+    if (!inner) return null;
+    const target = this.app.metadataCache.getFirstLinkpathDest(inner.split('#')[0], sourcePath);
+    return target ? target.basename : inner.split('/').pop();
   }
 
   wikiRow(links) {

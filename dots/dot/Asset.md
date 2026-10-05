@@ -1,11 +1,12 @@
 ---
 wikidata__cd: Q46737
-description:
-name__fr: actif
+description: Monetary contract between parties
+name__fr: Actif
+class: "[[Financial Instrument]]"
+fibo__uri: "[[dots.base#Financial Instrument]]"
 ---
 
 ![[dots.base#Dot.subclass]]
-
 
 
 
@@ -34,15 +35,4 @@ Actifs courants
 - La [trésorerie](https://fr.wikipedia.org/wiki/Tr%C3%A9sorerie "Trésorerie")
 
 L'actif courant est destiné à être utilisé ou vendu dans le cadre du cycle d'exploitation de l'entreprise et la trésorerie (ou actif de trésorerie) est librement négociable par l'entreprise ([valeurs mobilières de placement](https://fr.wikipedia.org/wiki/Valeur_mobili%C3%A8re "Valeur mobilière"), banque, [caisse](https://fr.wikipedia.org/wiki/Caisse_\(comptabilit%C3%A9\) "Caisse (comptabilité)")). Aucune classe n'est imposée à l'international.
-
-
-
-
-
-# Related
-
-![[IFRS Foundation (International Financial Reporting Standards Foundation)]]
-
-
-
 
