@@ -94,6 +94,10 @@ sync apply      <- actually writes
     It also names **link dots**: any dot with `class: "[[in]]"` or `"[[out]]"` plus `in` and
     `out` in its frontmatter is renamed to `{in}--{class}--{out}` (e.g.
     `Vegetable Soup--Recipe--in--Olive Oil`) whenever those change.
+- `rdf/` — RDF view of the graph. `rdf/turtle/dots.ttl` is a hand-written slice
+  of the dots (`class` → `rdfs:subClassOf`, `type` → `rdf:type`), served over
+  SPARQL by Apache Jena Fuseki from `rdf/jena/` (`docker compose up -d --build`,
+  then http://localhost:3030). See `rdf/README.md`.
 - `assets/` — vault assets. *Currently empty.*
 
 ## Notes for agents
