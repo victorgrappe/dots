@@ -7,7 +7,7 @@ description:
 
 
 # IO
-![[dots.base#Recipe]]
+![[dots.base#io__mass]]
 ![[dots.base#io__energy]]
 ![[dots.base#io__number]]
 # In

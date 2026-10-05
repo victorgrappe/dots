@@ -9,6 +9,3 @@ name__fr: Aliment
 
 
 
-![[dots.base#io__energy]]
-
-

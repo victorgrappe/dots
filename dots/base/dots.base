@@ -288,7 +288,7 @@ views:
       formula.out__mass: Sum
       formula.out__number: Sum
     columnSize:
-      note.out: 180
+      note.out: 265
       note.description: 430
       file.name: 307
   - type: table
@@ -384,3 +384,26 @@ views:
       file.name: 311
       formula.io__out__number: 178
       formula.in__out__number: 173
+  - type: table
+    name: Recipe
+    filters:
+      and:
+        - formula.class__path.contains(".Recipe.")
+    order:
+      - formula.class__path
+      - file.name
+    columnSize:
+      formula.class__path: 456
+  - type: table
+    name: Chemical Element.type_
+    filters:
+      and:
+        - type == link("Chemical Element")
+    order:
+      - file.name
+      - proton__nb
+    sort:
+      - property: proton__nb
+        direction: ASC
+    columnSize:
+      file.name: 185
