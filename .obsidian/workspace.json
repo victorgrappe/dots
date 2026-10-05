@@ -446,6 +446,10 @@
   },
   "active": "97b41422c7260903",
   "lastOpenFiles": [
+    "rdf/sparql/link-dots.rq",
+    "rdf/sparql/instances.rq",
+    "rdf/sparql/class-hierarchy.rq",
+    "rdf/sparql",
     "rdf/README.md",
     "rdf/jena/shiro.ini",
     "rdf/jena/config.ttl",
@@ -454,11 +458,8 @@
     "rdf/turtle/dots.ttl",
     "rdf/turtle",
     "rdf/jena",
-    "rdf",
     "remote2/dot/Hello.md",
     "remote2/dot/ByeUU.md",
-    "remote2/dot",
-    "remote2",
     "remote/dot/Home.md",
     "remote/dot/Hello.md",
     "remote/dot/Bye.md",
@@ -480,7 +481,6 @@
     "dots/dot/class.md",
     "dots/dot/chirality.md",
     "dots/dot/arity.md",
-    "dots/dot/ZUCC.md",
-    "dots/dot/Yogurt.md"
+    "dots/dot/ZUCC.md"
   ]
 }

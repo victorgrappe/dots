@@ -11,6 +11,7 @@ rdf/
 │   ├── docker-compose.yml   # one service, port 3030 on localhost
 │   ├── config.ttl           # the "dots" dataset: in memory, loaded from turtle/
 │   └── shiro.ini            # access control: open, for local use
+├── sparql/                  # saved queries (.rq)
 └── turtle/
     └── dots.ttl             # the graph
 ```
@@ -28,12 +29,12 @@ docker compose down
 The first build downloads Fuseki (about 50 MB). In the logs, wait for `Start Fuseki`.
 
 | What | URL |
-|---|---|
-| Web UI | http://localhost:3030/ |
-| SPARQL query | http://localhost:3030/dots/sparql (also `/dots/query`) |
-| SPARQL update | http://localhost:3030/dots/update |
-| Graph Store, read/write | http://localhost:3030/dots/data |
-| Graph Store, read only | http://localhost:3030/dots/get |
+| --- | --- |
+| Web UI | <http://localhost:3030/> |
+| SPARQL query | <http://localhost:3030/dots/sparql> (also `/dots/query`) |
+| SPARQL update | <http://localhost:3030/dots/update> |
+| Graph Store, read/write | <http://localhost:3030/dots/data> |
+| Graph Store, read only | <http://localhost:3030/dots/get> |
 
 **The dataset is in memory.** It is reloaded from `turtle/dots.ttl` each time the
 container starts. Edit the file, then run `docker compose restart`. SPARQL updates
@@ -45,7 +46,7 @@ work, but they are lost on restart. The Turtle file is the source of truth.
 chain, the matter chain, and one link dot.
 
 | Frontmatter | RDF |
-|---|---|
+| --- | --- |
 | file `dots/dot/{Name}.md` | IRI `dot:{Name}`, spaces become `_` (`http://dots.local/dot/`) |
 | `class: "[[B]]"` | `rdfs:subClassOf dot:B` (transitive) |
 | `type: "[[B]]"` | `rdf:type dot:B` (not transitive) |
@@ -90,6 +91,64 @@ curl -s http://localhost:3030/dots/sparql \
   -H 'Accept: text/csv' \
   --data-urlencode 'query=SELECT * WHERE { ?s ?p ?o } LIMIT 10'
 ```
+
+```bash
+curl -s http://localhost:3030/dots/sparql -H 'Accept: text/csv' --data-urlencode 'query@sparql/class-hierarchy.rq'
+
+curl \
+  -s http://localhost:3030/dots/sparql \
+  -H 'Accept: text/csv' \
+  --data-urlencode 'query@rdf/sparql/class-hierarchy.rq'
+
+
+
+export OUT_FORMAT="text/plain"
+export OUT_FORMAT="text/csv"
+export OUT_FORMAT="text/tab-separated-values"
+export OUT_FORMAT="application/sparql-results+json"
+export OUT_FORMAT="application/sparql-results+xml"
+
+
+clear; curl \
+  -s http://localhost:3030/dots/sparql \
+  -H "Accept: ${OUT_FORMAT}" \
+  --data-urlencode 'query@rdf/sparql/class-hierarchy.rq'
+
+
+curl \
+  -s http://localhost:3030/dots/sparql \
+  -H 'Accept: application/sparql-results+json' \
+  --data-urlencode 'query@rdf/sparql/class-hierarchy.rq'
+
+For JSON instead of CSV, change the header to Accept: application/sparql-results+json. You can also paste a file into the query editor at http://localhost:3030.
+```
+
+## Saved queries
+
+`sparql/` holds ready-made queries, one per `.rq` file:
+
+| File | Returns |
+| --- | --- |
+| `class-hierarchy.rq` | every class, its parent (`class:`) and its depth below Dot |
+| `instances.rq` | every `type:` instance, its type and its top-level class |
+| `link-dots.rq` | link dots: `in` → `out`, with `order` and `multiplier` |
+
+Run one from `rdf/` while the server is up. `query@file` makes curl read the
+query from the file:
+
+```bash
+curl -s http://localhost:3030/dots/sparql -H 'Accept: text/csv' --data-urlencode 'query@sparql/class-hierarchy.rq'
+```
+
+To run all of them:
+
+```bash
+for q in sparql/*.rq; do echo "== $q"; curl -s http://localhost:3030/dots/sparql -H 'Accept: text/csv' --data-urlencode "query@$q"; done
+```
+
+For other formats, change the `Accept` header to `text/tab-separated-values` or
+`application/sparql-results+json`. You can also paste a file into the query editor
+of the web UI.
 
 ## Upgrading Fuseki
 
